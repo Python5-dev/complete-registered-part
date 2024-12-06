@@ -2,11 +2,13 @@ import { useFormik } from 'formik';
 import { loginSchema } from "../schemas";
 import axios from 'axios';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const initialValues = {
-    usernameOrEmail: "",
+    username_or_email: "",
     password: "",
   }
 
@@ -14,14 +16,17 @@ const Login = () => {
     initialValues: initialValues,
     validationSchema: loginSchema,
     onSubmit: async (values, action) => {
-      try{
+      console.log(values)
+      try {
         const res = await axios.post("http://127.0.0.1:8000/login/", values);
-        if(res.status===200){
+        if(res.status === 200){
+          localStorage.setItem("access token", res.data.access);
+          localStorage.setItem("refresh token", res.data.refresh);
           messageApi.open({
             type: "success",
             content: res.data.message,
-            duration: 10,
           })
+          navigate("/dashboard");
         }
       } catch (error:any) {
         messageApi.open({
@@ -42,30 +47,32 @@ const Login = () => {
             <h2 className="text-center">Login</h2>
 
             <div>
-              <label htmlFor="email" className="formLabel">
-                Email Address
+              <label htmlFor="usernameOrEmail" className="formLabel">
+                Username Or Email
               </label>
               <input
                 type="text"
-                name="usernameOrEmail"
-                value={values.usernameOrEmail}
+                name="username_or_email"
+                value={values.username_or_email}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
+              {errors.username_or_email && touched.username_or_email ? <span className="formError">{errors.username_or_email}</span> : null}
             </div>
-            {errors.usernameOrEmail && touched.usernameOrEmail ? <span className="formError">{errors.usernameOrEmail}</span> : null}
+
             <div className="my-6">
               <label htmlFor="password" className="formLabel">
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                value={values.password}
-                onChange={handleChange}
-              />
+                <input
+                  type="password"
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
               {errors.password && touched.password ? <span className="formError">{errors.password}</span> : null}
-            </div>
+              </div>
 
             <button type="submit" className="formButton">
               Login
