@@ -1,114 +1,114 @@
-import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import axios from "axios";
 import { registerSchema } from "../schemas";
-import axios from 'axios';
-import { message } from 'antd';
 
-const Register = () => {
+const Register = ({onRegClose, onLoginClose}:any) => {
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const initialValues = {
     username: "",
     email: "",
     password: "",
-    confirmPassword: "", 
+    confirmPassword: ""
   }
 
   const {values, errors, touched, handleChange, handleSubmit, handleBlur} = useFormik({
     initialValues: initialValues,
     validationSchema: registerSchema,
     onSubmit: async (values, action) => {
+      console.log(values)
       try {
-        const res = await axios.post("http://127.0.0.1:8000/register/", values)
-        if (res.status === 201) {
-          messageApi.open({
-            type: "success",
-            content: res.data.message
-          })
+        const response = await axios.post("http://127.0.0.1:8000/register/", values);
+        if (response.status === 200) {
+          onRegClose(false);
+          localStorage.setItem("registerData", JSON.stringify(values));
+          navigate("/otp");
         }
       } catch (error:any) {
         messageApi.open({
           type: "error",
-          content: error.response.data.error
+          content: error.response?.data?.error || "Registration failed",
         })
       }
-      action.resetForm()
+      action.resetForm();
     }
   });
 
   return (
     <>
       {contextHolder}
-      <div className="screenMiddleDiv">
-        <div className="formDiv">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-center">Register</h2>
+            <h2 className="text-center font-semibold text-[#003366]">Sign up</h2>
             <div>
-              <label htmlFor="username" className="formLabel">
-                Username
-              </label>
+              <label><span className='text-red-600'>*</span>Username:</label>
               <input
                 type="text"
                 name="username"
                 value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className='mt-1'
               />
               {errors.username && touched.username ? <span className="formError">{errors.username}</span> : null}
             </div>
 
-            <div className='my-6'>
-              <label htmlFor="email" className="formLabel">
-                Email Address
-              </label>
+            <div className="my-6">
+            <label><span className='text-red-600'>*</span>Email:</label>
               <input
-                type="email"
+                type="text"
                 name="email"
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                className='mt-1'
               />
               {errors.email && touched.email ? <span className="formError">{errors.email}</span> : null}
-              </div>
+            </div>
 
             <div className="my-6">
-              <label htmlFor="password" className="formLabel">
-                Password
-              </label>
+              <label><span className='text-red-600'>*</span>Password:</label>
                 <input
                   type="password"
                   name="password"
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  className='mt-1'
                 />
               {errors.password && touched.password ? <span className="formError">{errors.password}</span> : null}
               </div>
 
-            <div className="my-6">
-              <label htmlFor="confirmPassword" className="formLabel">
-                Confirm Password
-              </label>
+              <div className="my-6">
+                <label><span className='text-red-600'>*</span>Confirm Password:</label>
                 <input
                   type="password"
                   name="confirmPassword"
                   value={values.confirmPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  className='mt-1'
                 />
               {errors.confirmPassword && touched.confirmPassword ? <span className="formError">{errors.confirmPassword}</span> : null}
               </div>
 
             <button type="submit" className="formButton">
-              Register
+              Sign up
             </button>
-            <div className='text-center mt-3'>
-              Already have an account? <Link to="/login" className='text-sm hover:underline'>Login</Link>
-            </div>
           </form>
-        </div>
-      </div>
+          <div className='text-center text-[#003366] font-normal m-2'>
+            Already have an account?&nbsp;
+            <button className='underline' onClick={
+              () => {
+                onRegClose(false);
+                onLoginClose(true);
+                }
+              }>Login
+            </button>
+          </div>
     </>
   );
-};
+}
 
 export default Register;
