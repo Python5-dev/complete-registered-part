@@ -211,7 +211,13 @@ const Dashboard = () => {
     selectedRowKeys.map((id) => {
       data.map(async (user) => {
         if(id == user.id) {
-          await axios.delete(`http://127.0.0.1:8000/dashboard/user/delete/${user.username}/`);
+          const res = await axios.delete(`http://127.0.0.1:8000/dashboard/user/delete/${user.username}/`);
+          if(res.status === 200) {
+            messageApi.open({
+              type: "success",
+              content: res.data.message,
+            })
+          }
         }
       })
     })
@@ -230,8 +236,10 @@ const Dashboard = () => {
       {contextHolder}
       {username_or_email === 'admin' || username_or_email === 'admin@gmail.com' ? (
         <>
-          <h4 className='font-bold text-center'>All Registered Users</h4>
-          <button onClick={handleDelete} className='flex flex-col items-end'>Delete</button>
+          <h4 className='font-bold text-center text-[#003366]'>All Registered Users</h4>
+          <div className='text-right'>
+            <button onClick={handleDelete} className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-xl py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90'>Delete</button>
+          </div>
           <Table rowSelection={rowSelection} columns={columns} dataSource={data} rowKey="id" components={{
             header: {
               cell: (props:any) => (
@@ -252,6 +260,7 @@ const Dashboard = () => {
         </>
       ) : (
         <>
+          <div className='flex flex-col items-center my-5'>
           <h1>{username_or_email}</h1>
           <Upload
             name="avatar"
@@ -293,8 +302,11 @@ const Dashboard = () => {
     )}
   </div>
           </Upload>
-          <button onClick={handleButtonClick}>Edit Profile</button>
-          <button onClick={removeProfile}>Remove Profile</button>
+          </div>
+          <div className='flex justify-center'>
+            <button onClick={handleButtonClick}>Edit Profile</button>
+            <button onClick={removeProfile}>Remove Profile</button>
+          </div>
           <form action="">
           <input type="text" onChange={(e) => setPassword(e.target.value)}/>
       <button onClick={(e:any) => changePassword(e, password)}>Change Password</button>

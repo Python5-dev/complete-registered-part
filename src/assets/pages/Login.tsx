@@ -102,7 +102,7 @@ const Login = ({onRegClose, onLoginClose}:any) => {
               </div>
             </div>
 
-            <button type="submit" className="formButton">
+            <button type="submit" className="formButton hover:bg-[#0f6466]">
               Login
             </button>
           </form>

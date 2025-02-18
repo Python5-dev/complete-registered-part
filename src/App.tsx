@@ -1,24 +1,23 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./assets/components/Navbar";
 import Dashboard from "./assets/pages/Dashboard";
 import Home from "./assets/pages/Home";
 import OTP from "./assets/pages/OTP";
-import ForgetPasswordForm from "./assets/pages/ForgetPasswordForm";
-import Err from "./assets/pages/Error";
+import ForgetPassword from "./assets/pages/ForgetPassword";
 
 function App() {
+  const location = useLocation();
+  console.log(location.pathname)
   return (
-    <Router>
-      <Navbar />
-      {/* Navigational Components */}
+    <>
+      { location.pathname !== '/forget-password' ? <Navbar /> : null }
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route exact path="/otp" element={<OTP />} />
-        <Route exact path="/forget-password" element={<ForgetPasswordForm />} />
-        <Route exact path="*" element={<Err />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import IELTSInfo from "../components/IELTSInfo";
-import ContactUs from "./ContactUs";
+// import ContactUs from "./ContactUs";
 
 const Home = () => {
   const [token, setToken] = useState(localStorage.getItem("access token") || null);
@@ -22,13 +22,14 @@ const Home = () => {
       <img src="ielts-image.webp" alt="IELTS Banner" className="w-screen" />
       {token ? <IELTSInfo /> : 
       <>
-        <h1 className="font-extrabold text-center text-[#003366]">Our Team</h1>
-        <div className="flex justify-center gap-[20%]">
-          <img src="AboutUs\furqan.jpg" alt="" className="rounded-full size-40"/>
-          <img src="AboutUs\wahab.jpg" alt="" className="rounded-full size-40"/>
-          <img src="AboutUs\ahmad.jpg" alt="" className="rounded-full size-40"/>
+        {/* <h1 className="font-extrabold text-center text-[#003366]">Our Team</h1>
+        <div className="flex my-5">
+          <img src="AboutUs\wahab.jpg" alt="" className="w-1/2" />
+          <div className="bg-[#003366] w-1/2">
+            <h1 className="text-[#d2e8e3] m-2">Graphic Designer</h1>
+          </div>
         </div>
-        <ContactUs />
+        <ContactUs /> */}
       </>}
     </div>
   );

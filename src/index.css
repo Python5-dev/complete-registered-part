@@ -61,7 +61,6 @@ nav button:hover, .dashboard:hover {
 @layer base {
   h1 {
     font-size: 36px;
-    padding: 36px;
   }
   h2 {
     font-size: 30px;
