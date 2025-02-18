@@ -9,7 +9,7 @@ const registerSchema = Yup.object({
 
 const loginSchema = Yup.object({
     username_or_email: Yup.string().required("Email is requierd"),
-    password: Yup.string().min(8).required("Password is required")
+    password: Yup.string().required("Password is required")
 })
 
 export { registerSchema, loginSchema };

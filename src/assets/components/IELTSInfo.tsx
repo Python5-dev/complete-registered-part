@@ -41,10 +41,10 @@ const IELTSInfo = () => {
               answer sheet. </li>
           </ul>
           </div>
-          <img src="listening.jpg" alt="" className="w-1/2 rounded-full" />
+          <img src="AboutIelts\listening.jpg" alt="" className="w-1/2 rounded-full" />
         </li>
         <li className="flex justify-center mb-20 shadow-md">
-          <img src="reading.jpg" alt="" className="w-1/2 rounded-full"/>
+          <img src="AboutIelts\reading.jpg" alt="" className="w-1/2 rounded-full"/>
           <div className="w-1/2">
           <h3 className="font-bold">Reading</h3>
           <ul style={{ listStyleType: 'circle', marginLeft: '20px', lineHeight: "2" }}>
@@ -101,10 +101,10 @@ const IELTSInfo = () => {
             </li>
           </ul>
           </div>
-          <img src="writing.jpg" alt="" className="w-1/2 rounded-full"/>
+          <img src="AboutIelts\writing.jpg" alt="" className="w-1/2 rounded-full"/>
         </li>
         <li className="flex justify-center mb-20 shadow-md">
-          <img src="speaking.jpg" alt="" className="w-1/2 rounded-full"/>
+          <img src="AboutIelts\speaking.jpg" alt="" className="w-1/2 rounded-full"/>
           <div className="w-1/2">
           <h3 className="font-bold">Speaking (11-14 minutes)</h3>
           <ul style={{ listStyleType: 'circle', marginLeft: '20px', lineHeight: "2" }}>
@@ -126,7 +126,7 @@ const IELTSInfo = () => {
           </div>
         </li>
       </ol>
-      <img src="LRWSTable.jpg" alt="" width={500}/>
+      <img src="AboutIelts\LRWSTable.jpg" alt="" width={500}/>
       <h1>Understanding IELTS Scores</h1>
       IELTS scores range from 0 to 9, with each of the four sections (Listening, 
       Reading, Writing, and Speaking) being scored separately. Your overall IELTS 
@@ -177,7 +177,7 @@ const IELTSInfo = () => {
         <li><span style={{fontWeight: "bold"}}>Band 0: Did Not Attempt the Test:</span> You did not answer any of the test 
         questions, or you were absent from the test. No score is provided.</li>
       </ul>
-      <img src="bandcategory.jpg" alt="" width={500}/>
+      <img src="AboutIelts\bandcategory.jpg" alt="" width={500}/>
       <h1>Academic vs. General Training: Which IELTS Test is Right for You?</h1>
       IELTS offers two distinct test formats: Academic and General Training. While both 
       versions assess the same core English language skills (listening, reading, writing, 
