@@ -19,7 +19,7 @@ const Home = () => {
 
   return (
     <div>
-      <img src="ielts-image.webp" alt="IELTS Banner" className="w-screen" />
+      <img src="IELTS-preparations.png" alt="" />
       {token ? <IELTSInfo /> : 
       <>
         {/* <h1 className="font-extrabold text-center text-[#003366]">Our Team</h1>

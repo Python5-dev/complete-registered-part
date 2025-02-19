@@ -1,11 +1,14 @@
 const IELTSInfo = () => {
   return (
     <div>
-      <p className="bg-[#f1f1f0] my-10 p-10">The International English Language Testing System (IELTS) is a standardized test 
-      designed to assess the English language proficiency of non-native speakers. It is 
-      widely accepted for study, work, and migration purposes in English-speaking 
-      countries. IELTS evaluates four key language skills: Listening, Reading, Writing, and 
-      Speaking. There are two versions of the test:</p>
+      <div className="bg-[#f1f1f0] my-10 p-10 shadow-2xl border-4">
+        <img src="AboutIelts\ielts.png" alt="" className="mx-auto"/>
+        <p>The International English Language Testing System (IELTS) is a standardized test 
+        designed to assess the English language proficiency of non-native speakers. It is 
+        widely accepted for study, work, and migration purposes in English-speaking 
+        countries. IELTS evaluates four key language skills: Listening, Reading, Writing, and 
+        Speaking. There are two versions of the test:</p>
+      </div>
       <h1>Why Take IELTS?</h1>
       IELTS is designed to evaluate a candidate's ability to use English in real-life 
       situations. Universities and colleges worldwide require IELTS scores as proof of 

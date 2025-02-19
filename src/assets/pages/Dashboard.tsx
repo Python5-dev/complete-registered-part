@@ -238,7 +238,7 @@ const Dashboard = () => {
         <>
           <h4 className='font-bold text-center text-[#003366]'>All Registered Users</h4>
           <div className='text-right'>
-            <button onClick={handleDelete} className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-xl py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90'>Delete</button>
+            <button onClick={handleDelete} className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90'>Delete</button>
           </div>
           <Table rowSelection={rowSelection} columns={columns} dataSource={data} rowKey="id" components={{
             header: {
