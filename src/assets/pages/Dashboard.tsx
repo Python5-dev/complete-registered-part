@@ -25,7 +25,8 @@ const Dashboard = () => {
   const [password, setPassword] = useState("")
   const [imageUrl, setImageUrl] = useState<string>("");
   const username_or_email = localStorage.getItem("username_or_email");
-  console.log(username_or_email)
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const [data, setData] = useState<DataType[]>([]);
   
@@ -170,7 +171,8 @@ const Dashboard = () => {
       const refreshToken = localStorage.getItem("refresh token");
       const res = await axios.post("http://127.0.0.1:8000/dashboard/", refreshToken, {
         headers: {
-          "authorization": accessToken
+          "authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
         }
       });
       console.log("response: ", res);
@@ -184,9 +186,22 @@ const Dashboard = () => {
         setData(users);
       } else {
         console.log(res.data);
-        const image = res.data.image.replace("testserver", "localhost:8000")
-        console.log(image)
-        setImageUrl(image);
+        if(res.data.status === 200) {
+          console.log("hk")
+          const image = res.data.Response.image.replace("testserver", "localhost:8000")
+          console.log("image: ", image);
+          console.log(image)
+          setImageUrl(image);
+          messageApi.open({
+            type: "success",
+            content: "Successfull"
+          })
+        }
+        else {
+          console.log(res.data.error)
+        }
+        setEmail(res.data.email)
+        setUsername(res.data.username)
       }
     } catch (error:any) {
       console.error('Error fetching data:', error.response.data.error);
@@ -236,7 +251,7 @@ const Dashboard = () => {
       {contextHolder}
       {username_or_email === 'admin' || username_or_email === 'admin@gmail.com' ? (
         <>
-          <h4 className='font-bold text-center text-[#003366]'>All Registered Users</h4>
+          <h4 className='font-black text-center text-[#003366] pt-20 text-3xl'>All Registered Users</h4>
           <div className='text-right'>
             <button onClick={handleDelete} className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90'>Delete</button>
           </div>
@@ -261,7 +276,8 @@ const Dashboard = () => {
       ) : (
         <>
           <div className='flex flex-col items-center my-5'>
-          <h1>{username_or_email}</h1>
+          <h1>{username}</h1>
+          <h1>{email}</h1>
           <Upload
             name="avatar"
             listType="picture-circle"
@@ -304,12 +320,12 @@ const Dashboard = () => {
           </Upload>
           </div>
           <div className='flex justify-center'>
-            <button onClick={handleButtonClick}>Edit Profile</button>
-            <button onClick={removeProfile}>Remove Profile</button>
+            <button className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90' onClick={handleButtonClick}>Edit Profile</button>
+            <button className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90' onClick={removeProfile}>Remove Profile</button>
           </div>
           <form action="">
           <input type="text" onChange={(e) => setPassword(e.target.value)}/>
-      <button onClick={(e:any) => changePassword(e, password)}>Change Password</button>
+      <button className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90' onClick={(e:any) => changePassword(e, password)}>Change Password</button>
           </form>
         </>
       )}

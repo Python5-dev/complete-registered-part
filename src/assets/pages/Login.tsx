@@ -31,8 +31,8 @@ const Login = ({onRegClose, onLoginClose}:any) => {
             localStorage.setItem("LoginData", JSON.stringify(values));
           }
           onLoginClose(false);
-          localStorage.setItem("access token", res.data.access);
-          localStorage.setItem("refresh token", res.data.refresh);
+          localStorage.setItem("accessToken", res.data.access);
+          localStorage.setItem("refreshToken", res.data.refresh);
           localStorage.setItem("username_or_email", values.username_or_email);
           messageApi.open({
             type: "success",
@@ -43,7 +43,8 @@ const Login = ({onRegClose, onLoginClose}:any) => {
             window.dispatchEvent(new Event("login"));
             window.dispatchEvent(new Event("storage"));
             navigate("/");
-          }, 0);        }
+          }, 0);
+        }
       } catch (error:any) {
         messageApi.open({
           type: "error",
@@ -58,7 +59,7 @@ const Login = ({onRegClose, onLoginClose}:any) => {
     <>
       {contextHolder}
           <form onSubmit={handleSubmit}>
-            <h2 className="text-center font-semibold text-[#003366]">Login</h2>
+            <h1 className="text-center font-semibold text-[#003366] p-8">Login</h1>
 
             <div>
               <label htmlFor="usernameOrEmail">
@@ -94,7 +95,7 @@ const Login = ({onRegClose, onLoginClose}:any) => {
                   console.log(checked);
                   setIsChecked(checked);
                 }}>Remember Me</Checkbox>
-                <button type="button" className='text-[#003366]' onClick={() => {
+                <button type="button" className='text-[#003366] hover:underline' onClick={() => {
                   onLoginClose(false);
                   navigate("/forget-password")
                   }
@@ -108,7 +109,7 @@ const Login = ({onRegClose, onLoginClose}:any) => {
           </form>
           <div className='text-center text-[#003366] font-normal m-2'>
             Don't have an account?&nbsp;
-            <button className='underline' onClick={
+            <button className='font-black hover:underline' onClick={
               () => {
                 onLoginClose(false);
                 onRegClose(true);

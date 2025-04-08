@@ -23,28 +23,42 @@ write below line in your editor setting.json, if unknown error exist for @tailwi
   }
 }
 
+* {
+  font-family: serif;
+}
+
 body {
   color: var(--foreground);
-  font-family: Verdana, sans-serif;
   font-weight: 200;
   font-size: 15px;
   line-height: 1.5;
 }
 nav {
-  background: linear-gradient(to bottom, #003366 0%, #003366 100%);
+  /* background: #003366; */
+  background: white;
   padding: 0px;
   text-align: right;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-  position: sticky;
+  /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); */
+  position: fixed;
   top: 0px;
+  width: 100%;
+  z-index: 12;
 }
 nav button, .dashboard {
-  color: var(--background);
+  /* background-color: #003366; */
+  /* color: var(--background); */
+  color: #003366;
+  font-weight: bold;
   padding: 10px 20px;
   display: inline-block;
 }
 nav button:hover, .dashboard:hover {
-  background-color: var(--button-color);
+  /* background-color: var(--button-color); */
+  /* background-color: #2471a3; */
+}
+
+.englishExpert {
+  font-family: "Poppins", sans-serif;
 }
 
 @layer utilities {
@@ -57,30 +71,42 @@ nav button:hover, .dashboard:hover {
   .formError {
     @apply text-xs text-red-600 ml-1;
   }
+  input:-webkit-autofill {
+    @apply bg-black text-white rounded-md border border-gray-600;
+    box-shadow: 0 0 0px 1000px #000 inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
 }
 @layer base {
   h1 {
     font-size: 36px;
+    font-weight: 900;
   }
   h2 {
     font-size: 30px;
     padding: 30px;
+    font-weight: 900;
   }
   h3 {
     font-size: 24px;
     padding: 24px;
+    font-weight: 900;
   }
   h4 {
     font-size: 20px;
     padding: 20px;
+    font-weight: 900;
   }
   h5 {
     font-size: 18px;
     padding: 18px;
+    font-weight: 900;
   }
   h6 {
     font-size: 16px;
     padding: 16px;
+    font-weight: 900;
   }
   input, textarea {
     @apply text-black w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0;
@@ -107,4 +133,105 @@ nav button:hover, .dashboard:hover {
   width: 100%;
   height: 400px;
   object-fit: cover;
+}
+
+.side {
+  border-radius: 0% 0% 100% 0%;
+}
+
+.borderR {
+  border-radius: 100% 0% 100% 100%
+}
+
+.custom-tabs .ant-tabs-nav-list {
+  gap: 100px;
+}
+
+.custom-tabs .ant-tabs-tab {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.custom-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+  text-decoration-line: white !important;
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background-color: white !important;
+}
+
+.custom-tabs .ant-tabs-nav {
+  background-color: #0f6466;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.custom-tabs {
+  padding: 60px;
+  border-radius: 10%;
+  border: 2px solid;
+  border-color: #003366;
+}
+
+.wave-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wave-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: wave 10s linear infinite;
+  background-color: #008080;
+  transform-origin: top;
+}
+
+.wave-layer:nth-child(1) {
+  animation-delay: 0s;
+  background-color: #008080;
+}
+
+.wave-layer:nth-child(2) {
+  animation-delay: 2s;
+  background-color: #007070;
+}
+
+.wave-layer:nth-child(3) {
+  animation-delay: 4s;
+  background-color: #009090;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(80px);
+  }
+  50% {
+    transform: translateY(40px);
+  }
+  75% {
+    transform: translateY(80px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(20px, -10px) scale(1.05);
+  }
+}
+.animate-blob {
+  animation: blob 8s infinite;
 }

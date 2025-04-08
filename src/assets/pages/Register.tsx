@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import axios from "axios";
 import { registerSchema } from "../schemas";
+import { useState } from 'react';
 
 const Register = ({onRegClose, onLoginClose}:any) => {
+  const [emailVerified, setEmailVerified] = useState(false);
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const initialValues = {
@@ -36,11 +38,16 @@ const Register = ({onRegClose, onLoginClose}:any) => {
     }
   });
 
+  const emailVerifying = () => {
+    setEmailVerified(true);
+    console.log(emailVerified);
+  }
+
   return (
     <>
       {contextHolder}
           <form onSubmit={handleSubmit}>
-            <h2 className="text-center font-semibold text-[#003366]">Sign up</h2>
+            <h1 className="text-center font-semibold text-[#003366] p-8">Register</h1>
             <div>
               <label><span className='text-red-600'>*</span>Username:</label>
               <input
@@ -55,15 +62,18 @@ const Register = ({onRegClose, onLoginClose}:any) => {
             </div>
 
             <div className="my-6">
-            <label><span className='text-red-600'>*</span>Email:</label>
-              <input
-                type="text"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className='mt-1'
-              />
+              <label><span className='text-red-600'>*</span>Email:</label>
+              <div className='flex'>
+                <input
+                  type="text"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className='mt-1'
+                />
+                <button type='button' onClick={emailVerifying} className='bg-[#003366] hover:bg-[#0f6466] text-white py-2 px-5 rounded-full transition-all duration-200 ease-in-out active:scale-90'>Verify</button>
+              </div>
               {errors.email && touched.email ? <span className="formError">{errors.email}</span> : null}
             </div>
 
@@ -93,13 +103,13 @@ const Register = ({onRegClose, onLoginClose}:any) => {
               {errors.confirmPassword && touched.confirmPassword ? <span className="formError">{errors.confirmPassword}</span> : null}
               </div>
 
-            <button type="submit" className="formButton">
-              Sign up
+            <button type="submit" className="formButton hover:bg-[#0f6466]">
+              Register
             </button>
           </form>
           <div className='text-center text-[#003366] font-normal m-2'>
             Already have an account?&nbsp;
-            <button className='underline' onClick={
+            <button className='font-black hover:underline' onClick={
               () => {
                 onRegClose(false);
                 onLoginClose(true);

@@ -1,30 +1,28 @@
 const IELTSInfo = () => {
   return (
     <div>
-      <div className="bg-[#f1f1f0] my-10 p-10 shadow-2xl border-4">
-        <img src="AboutIelts\ielts.png" alt="" className="mx-auto"/>
-        <p>The International English Language Testing System (IELTS) is a standardized test 
+      <p className="my-5 p-5 text-center">The International English Language Testing System (IELTS) is a standardized test 
         designed to assess the English language proficiency of non-native speakers. It is 
         widely accepted for study, work, and migration purposes in English-speaking 
         countries. IELTS evaluates four key language skills: Listening, Reading, Writing, and 
         Speaking. There are two versions of the test:</p>
-      </div>
-      <h1>Why Take IELTS?</h1>
-      IELTS is designed to evaluate a candidate's ability to use English in real-life 
-      situations. Universities and colleges worldwide require IELTS scores as proof of 
-      English proficiency for admission into their academic programs. Many countries, 
-      including the UK, Australia, Canada, and New Zealand, use IELTS scores to assess 
-      the English language skills of immigration applicants. Professional bodies in fields 
-      like medicine, nursing, engineering, and accounting often require IELTS scores for 
-      registration and licensing. Employers may use IELTS scores to evaluate the English 
-      language skills of job applicants. Therefore, a good IELTS score can open doors to 
-      opportunities for education, migration, and career advancement.
+      <h1 className="font-bold">Why Take IELTS?</h1>
+      <p>IELTS is designed to evaluate a candidate's ability to use English in real-life 
+        situations. Universities and colleges worldwide require IELTS scores as proof of 
+        English proficiency for admission into their academic programs. Many countries, 
+        including the UK, Australia, Canada, and New Zealand, use IELTS scores to assess 
+        the English language skills of immigration applicants. Professional bodies in fields 
+        like medicine, nursing, engineering, and accounting often require IELTS scores for 
+        registration and licensing. Employers may use IELTS scores to evaluate the English 
+        language skills of job applicants. Therefore, a good IELTS score can open doors to 
+        opportunities for education, migration, and career advancement.</p>
+      <img src="AboutIelts\take-ielts.jpg" alt="" className="mx-auto"/>
       <h1>IELTS Test Format</h1>
       <p className="pb-20">The IELTS test assesses your English language proficiency across four key 
-      skills: Listening, Reading, Writing, and Speaking. All candidates take the 
-      same Listening and Speaking tests. However, the Reading and Writing tests 
-      differ depending on whether you are taking the Academic or General 
-      Training version of the IELTS.</p>
+        skills: Listening, Reading, Writing, and Speaking. All candidates take the 
+        same Listening and Speaking tests. However, the Reading and Writing tests 
+        differ depending on whether you are taking the Academic or General 
+        Training version of the IELTS.</p>
       <ol style={{ listStyleType: 'decimal', marginLeft: '20px', paddingBottom: "20px" }}>
         <li className="flex justify-center mb-20 shadow-md">
           <div className="w-1/2">
