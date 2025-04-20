@@ -13,6 +13,7 @@ import { GiChatBubble } from "react-icons/gi";
 import { MdBubbleChart } from "react-icons/md";
 import { animate } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa6";
+import AdminHome from "../components/admin/dashboard/Home";
 
 const Home = ({ onRegClose, reference }:any) => {
   const [viewMessage, setViewMessage] = useState(false);
@@ -115,7 +116,9 @@ const Home = ({ onRegClose, reference }:any) => {
   }, []);
 
   return (
-    <>        
+    <>
+    {
+      !token ?
       <div ref={reference.Home} className="flex bg-[#f5f6f8] pb-5">
         { contextHolder }
         <div className="bg-[#003366] w-56 h-56 side"></div>
@@ -146,8 +149,8 @@ const Home = ({ onRegClose, reference }:any) => {
           0301-0700263
         </div> */}
       </div>
-      <GiChatBubble  className="text-[#003366] size-60 absolute left-[600px] top-20" data-aos="fade-left" />
-      <h1 className="absolute left-[665px] top-28 text-white text-5xl englishExpert" data-aos="fade-left">Say <br /><span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent text-6xl englishExpert">Yes!</span></h1>
+      {/* <GiChatBubble  className="text-[#003366] size-60 absolute left-[600px] top-20" data-aos="fade-left" /> */}
+      {/* <h1 className="absolute left-[665px] top-28 text-white text-5xl englishExpert" data-aos="fade-left">Say <br /><span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent text-6xl englishExpert">Yes!</span></h1> */}
       {/* <MdBubbleChart className="absolute size-48 top-[500px] text-[#003366] left-96" data-aos="fade-right"/> */}
       <svg className="absolute right-0 top-10 z-0 w-[700px]" viewBox="0 0 200 200">
         <path fill="#003366" d="M56.4,-49.6C71.5,-35.5,80.6,-13.5,77.9,7.7C75.2,28.9,60.6,49.3,42.8,60.2C25.1,71.2,4.2,72.8,-17.2,70.4C-38.7,68.1,-60.8,61.9,-69.2,47.4C-77.5,32.8,-72,9.9,-61.4,-8.7C-50.7,-27.2,-35,-41.4,-18.1,-53.3C-1.2,-65.2,16.9,-75.9,36.6,-72.3C56.2,-68.6,77.2,-50.5,83.6,-29.5C90,-8.4,81.8,15.6,70.4,34.5C59,53.4,44.4,67.2,27.9,72.5C11.4,77.8,-6,74.5,-24.1,67.8C-42.2,61,-60.9,51,-68.2,35.6C-75.6,20.2,-71.7,-0.5,-61.5,-17.4C-51.3,-34.2,-34.9,-47.2,-18.2,-56.4C-1.5,-65.6,15.3,-70.8,32.3,-68.9C49.3,-67,66.5,-58,72.3,-43.2C78,-28.5,71.3,-8.3,59.6,5.5C48,19.3,31.3,26.7,18.2,34.6C5.2,42.4,-3.2,50.8,-15.1,52.6C-26.9,54.5,-42.2,49.7,-56.4,41.8C-70.5,33.9,-83.6,23,-86.2,10.1C-88.8,-2.9,-80.9,-17.8,-70.1,-31.1C-59.2,-44.5,-45.3,-56.3,-30.3,-59.7C-15.4,-63.1,-0.5,-58.1,13.1,-49.1C26.7,-40.1,39.7,-27.2,56.4,-49.6Z" transform="translate(100 100)" />
@@ -165,9 +168,10 @@ const Home = ({ onRegClose, reference }:any) => {
           className="relative h-[650px] mix-blend-multiply"
         />
       </div>
-      </div>
+      </div> : <AdminHome />
+}
       {
-        token ? <IELTSInfo /> :
+        token ? null :
         <>
           <div ref={reference.AboutUs} className="mt-20">
             <h1 className="text-center text-[#003366] font-black">About Us</h1>

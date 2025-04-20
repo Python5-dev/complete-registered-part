@@ -39,12 +39,13 @@ nav {
   padding: 0px;
   text-align: right;
   /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); */
-  position: fixed;
+  position: sticky;
   top: 0px;
   width: 100%;
   z-index: 12;
 }
-nav button, .dashboard {
+nav button,
+.dashboard {
   /* background-color: #003366; */
   /* color: var(--background); */
   color: #003366;
@@ -52,7 +53,8 @@ nav button, .dashboard {
   padding: 10px 20px;
   display: inline-block;
 }
-nav button:hover, .dashboard:hover {
+nav button:hover,
+.dashboard:hover {
   /* background-color: var(--button-color); */
   /* background-color: #2471a3; */
 }
@@ -108,10 +110,12 @@ nav button:hover, .dashboard:hover {
     padding: 16px;
     font-weight: 900;
   }
-  input, textarea {
+  input,
+  textarea {
     @apply text-black w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-0;
   }
-  input:focus, textarea:focus {
+  input:focus,
+  textarea:focus {
     border-color: var(--button-color);
   }
 }
@@ -140,7 +144,7 @@ nav button:hover, .dashboard:hover {
 }
 
 .borderR {
-  border-radius: 100% 0% 100% 100%
+  border-radius: 100% 0% 100% 100%;
 }
 
 .custom-tabs .ant-tabs-nav-list {
@@ -225,7 +229,8 @@ nav button:hover, .dashboard:hover {
 }
 
 @keyframes blob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0px, 0px) scale(1);
   }
   50% {
@@ -234,4 +239,9 @@ nav button:hover, .dashboard:hover {
 }
 .animate-blob {
   animation: blob 8s infinite;
+}
+
+.ant-select-item-option-selected {
+  background-color: #003366 !important;
+  color: white !important;
 }

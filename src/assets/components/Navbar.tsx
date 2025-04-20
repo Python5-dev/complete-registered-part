@@ -6,6 +6,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import { TbBellRingingFilled } from "react-icons/tb";
 import { FaCircleUser } from "react-icons/fa6";
+import { DownOutlined } from '@ant-design/icons';
+import axios from "axios";
 
 function Navbar({ fetchReference }:any) {
   const [showLoginModal, setShowLoginModal] = useState(false)
@@ -36,14 +38,43 @@ function Navbar({ fetchReference }:any) {
     };
   }, []);
 
-  const handleLogout = () => {
-    ["access token", "refresh token", "username_or_email"].forEach(item =>
-      localStorage.removeItem(item)
-    );
-    window.dispatchEvent(new Event("storage"));
-    setIsLoggedIn(false);
-    navigate("/");
+  const handleLogout = async () => {
+    const username_or_email = localStorage.getItem("username_or_email");
+    const currentTime = formatDateCustom(new Date())
+    const resTime = await axios.post("http://127.0.0.1:8000/log-activities/", {
+      username_or_email: username_or_email,
+      activities: {
+        logout: currentTime,
+      }
+    });
+    if(resTime.status===201) {
+      ["access token", "refresh token", "username_or_email"].forEach(item =>
+        localStorage.removeItem(item)
+      );
+  
+      window.dispatchEvent(new Event("storage"));
+      setIsLoggedIn(false);
+      navigate("/");
+    }
+
   }
+
+  function formatDateCustom(date:any) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+  
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const hourStr = String(hours).padStart(2, '0');
+  
+    return `${day}-${month}-${year} ${hourStr}:${minutes}:${seconds} ${ampm}`;
+  }
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -78,14 +109,41 @@ function Navbar({ fetchReference }:any) {
     window.scrollTo({top: ref.current?.offsetTop, behavior: "smooth"})
   }
 
+  const testItems:MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <Link to="/ielts-listening" className="dashboard">IELTS Listening Tests</Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link to="/ielts-reading" className="dashboard">IELTS Reading Tests</Link>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <Link to="/ielts-writing" className="dashboard">IELTS Writing Tests</Link>
+      ),
+    },
+    {
+      key: '4',
+      label: (
+        <Link to="/ielts-speaking" className="dashboard">IELTS Speaking Tests</Link>
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="bg-[#003366] rotate-90 top-[400px] -left-[125px] rounded-ss-2xl rounded-tr-2xl fixed z-20">
+      {/* <div className="bg-[#003366] rotate-90 top-[400px] -left-[125px] rounded-ss-2xl rounded-tr-2xl fixed z-20">
         <button onClick={() => scrollHandler(Home)} className="px-5 py-2 text-white hover:rounded-ss-2xl hover:bg-[#1a4473]">Home</button>
         <button onClick={() => scrollHandler(AboutUs)} className="px-5 py-2 text-white hover:bg-[#1a4473]">About Us</button>
         <button onClick={() => scrollHandler(ContactUs)} className="px-5 py-2 text-white hover:rounded-se-2xl hover:bg-[#1a4473]">Contact Us</button>
-      </div>
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70">
+      </div> */}
+      <nav className="sticky top-0 w-full z-50 backdrop-blur-md bg-white/70">
         {!isLoggedIn ? (
           <>
             <div className="flex justify-end text-xs font-bold">
@@ -97,16 +155,27 @@ function Navbar({ fetchReference }:any) {
             </div>
           </>
         ) : (
-          <div className="flex justify-between items-center w-full px-2">
+          <div className="flex">
+            <img src="finalLogo.png" alt="" className="h-20"/>
+          <div className="flex justify-between items-center w-full">
             <div className="flex-1 flex justify-center space-x-4">
               <Link to="/" className="dashboard">Home</Link>
+              <Dropdown menu={{ items: testItems }}>
+                <span className='dashboard'>
+                  Tests
+                  <DownOutlined />
+                </span>
+              </Dropdown>
               <Link to="/about-ielts" className="dashboard">About IELTS</Link>
               <Link to="/tips-for-ielts" className="dashboard">TipsForIELTS</Link>
-              {/* <Link to="/testing" className="dashboard">Testing</Link> */}
+              <Link to="/learning-page" className="dashboard">Learning Page</Link>
               <Link to="/learning-material" className="dashboard">Learning Materials</Link>
+              {/* <Link to="/manage-resources" className="dashboard">Manage Resources</Link>
+              <Link to="/tests" className="dashboard">Manage Tests</Link>
+              <Link to="/users" className="dashboard">Manage Users</Link> */}
               <Link to="/dashboard" className="dashboard">Dashboard</Link>
             </div>
-            <div className="lex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <button onClick={handleLogout}>Logout</button>
               {
                 localStorage.getItem("username_or_email") !== "admin" ?
@@ -118,6 +187,7 @@ function Navbar({ fetchReference }:any) {
                 : null
               }
             </div>
+          </div>
           </div>
         )}
       </nav>

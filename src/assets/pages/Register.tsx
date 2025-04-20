@@ -1,12 +1,13 @@
 import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { message, Modal } from "antd";
 import axios from "axios";
 import { registerSchema } from "../schemas";
 import { useState } from 'react';
+import OTP from './OTP';
 
 const Register = ({onRegClose, onLoginClose}:any) => {
-  const [emailVerified, setEmailVerified] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const initialValues = {
@@ -38,10 +39,7 @@ const Register = ({onRegClose, onLoginClose}:any) => {
     }
   });
 
-  const emailVerifying = () => {
-    setEmailVerified(true);
-    console.log(emailVerified);
-  }
+
 
   return (
     <>
@@ -72,7 +70,7 @@ const Register = ({onRegClose, onLoginClose}:any) => {
                   onBlur={handleBlur}
                   className='mt-1'
                 />
-                <button type='button' onClick={emailVerifying} className='bg-[#003366] hover:bg-[#0f6466] text-white py-2 px-5 rounded-full transition-all duration-200 ease-in-out active:scale-90'>Verify</button>
+                <button type='button' onClick={() => setShowOtpModal(true)} className='bg-[#003366] hover:bg-[#0f6466] text-white py-2 px-5 transition-all duration-200 ease-in-out active:scale-90'>Verify</button>
               </div>
               {errors.email && touched.email ? <span className="formError">{errors.email}</span> : null}
             </div>
@@ -117,6 +115,9 @@ const Register = ({onRegClose, onLoginClose}:any) => {
               }>Login
             </button>
           </div>
+          <Modal open={showOtpModal} onCancel={() => setShowOtpModal(false)} footer={null}>
+            <OTP />
+          </Modal>
     </>
   );
 }

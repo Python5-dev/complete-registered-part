@@ -1,18 +1,8 @@
-import { message, Table, Upload } from 'antd';
+import { message, Upload } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ColumnsType } from 'antd/es/table';
 import { UserOutlined } from '@ant-design/icons';
-import type { TableProps } from 'antd';
-
-type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-
-interface DataType { 
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-}
+import Dash from '../components/admin/dashboard/Dashboard';
 
 const getBase64 = (img:any, callback:(url:string) => void) => {
   const reader = new FileReader();
@@ -21,41 +11,12 @@ const getBase64 = (img:any, callback:(url:string) => void) => {
 }
 
 const Dashboard = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [password, setPassword] = useState("")
   const [imageUrl, setImageUrl] = useState<string>("");
   const username_or_email = localStorage.getItem("username_or_email");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  const [data, setData] = useState<DataType[]>([]);
-  
-  const columns: ColumnsType<DataType> = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
-    },
-    {
-      title: 'Username',
-      dataIndex: 'username',
-      key: 'username',
-      render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-      render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
-    },
-    {
-      title: 'Password',
-      dataIndex: 'password',
-      key: 'password',
-      render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
-    }
-  ]
   
   const handleChange = (info:any) => {
     getBase64(info.file.originFileObj, (url) => {
@@ -165,6 +126,7 @@ const Dashboard = () => {
     }
   }
 
+  
   const fetchData = async () => {
     try {
       const accessToken = localStorage.getItem("access token");
@@ -183,7 +145,6 @@ const Dashboard = () => {
           id: index + 1,
         }));
         console.log("objects: ", users);
-        setData(users);
       } else {
         console.log(res.data);
         if(res.data.status === 200) {
@@ -212,66 +173,12 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  const onSelectChange = (newSelectedRowKeys:any) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  }
-
-  const rowSelection:TableRowSelection<DataType> = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  }
-  
-  const handleDelete = () => {
-    selectedRowKeys.map((id) => {
-      data.map(async (user) => {
-        if(id == user.id) {
-          const res = await axios.delete(`http://127.0.0.1:8000/dashboard/user/delete/${user.username}/`);
-          if(res.status === 200) {
-            messageApi.open({
-              type: "success",
-              content: res.data.message,
-            })
-          }
-        }
-      })
-    })
-    
-    const filteredData = data.filter((row: any) => {
-      return !selectedRowKeys.includes(row.id);
-    });
-
-    const users = filteredData.map((user, index) => ({ ...user, id: index + 1 }));
-    console.log(users);
-    setData(users);
-  }
-  
   return (
     <>
       {contextHolder}
       {username_or_email === 'admin' || username_or_email === 'admin@gmail.com' ? (
         <>
-          <h4 className='font-black text-center text-[#003366] pt-20 text-3xl'>All Registered Users</h4>
-          <div className='text-right'>
-            <button onClick={handleDelete} className='bg-[#003366] hover:bg-[#0f6466] text-[#d2e8e3] rounded-lg py-1 px-5 m-1 shadow-2xl transition-all duration-200 ease-in-out active:scale-90'>Delete</button>
-          </div>
-          <Table rowSelection={rowSelection} columns={columns} dataSource={data} rowKey="id" components={{
-            header: {
-              cell: (props:any) => (
-                <th
-                  {...props}
-                  style={{ 
-                    backgroundColor: '#003366', 
-                    color: '#d2e8e3', 
-                    fontWeight: 'bold', 
-                    textAlign: 'center', 
-                    ...props.style,
-                  }}
-                />
-              ),
-            },
-          }}
-          />
+        <Dash />
         </>
       ) : (
         <>
